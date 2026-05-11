@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Product Detail - Cosplay Rental PH</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <ul class="nav-links"></ul>
+        <div class="nav-actions">
+            <div class="profile-dropdown" style="display: none;"><div class="user-greeting"><i class="fas fa-user-circle"></i><span id="profileName"></span></div>
+                <div class="dropdown-content" id="profileDropdownMenu">
+                    <a href="#" id="accountSettingsBtn"><i class="fas fa-user-edit"></i> Account Settings</a>
+                    <a href="#" id="paymentSettingsBtn"><i class="fas fa-credit-card"></i> Payment Settings</a>
+                    <a href="#" id="themeToggleBtn"><i class="fas fa-moon"></i> Dark/Light Mode</a><hr><a href="#" id="dropdownLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <span id="userNameDisplay" class="user-greeting" style="display: none;"></span>
+            <button id="logoutBtn" class="btn-outline" style="display: none;">Logout</button>
+            <button id="openAuthBtn" class="btn-primary" style="display: inline-flex;">Login</button>
+        </div>
+        <div class="logo"><a href="index.html"><i class="fas fa-dragon"></i><span>Cosplay Rental<span class="ph">PH</span></span></a></div>
+    </div>
+</nav>
+<main class="product-main">
+    <div class="product-container" id="productContainer">
+        <div class="product-image" id="productImage"></div>
+        <div class="product-info">
+            <h1 id="productName"></h1>
+            <div class="product-owner" id="productOwner"></div>
+            <div class="product-price" id="productPrice"></div>
+            <div class="product-badges" id="productBadges"></div>
+            <div class="product-size-section"><label>Size <span id="sizeGuideLink" class="size-guide-link">(Size Guide)</span></label><select id="sizeSelect"></select></div>
+            <div class="product-dates"><div class="date-group"><label>Start Date</label><input type="date" id="startDate"></div><div class="date-group"><label>End Date</label><input type="date" id="endDate"></div></div>
+            <div class="product-total" id="totalDisplay"></div>
+            <div class="product-actions"><button id="rentNowBtn" class="btn-primary btn-large"><i class="fas fa-calendar-check"></i> Rent Now</button><button id="wishlistBtn" class="btn-outline"><i class="fas fa-heart"></i> Wishlist</button></div>
+            <div class="payment-methods"><p><strong>Payment Method</strong></p><div class="payment-icons"><i class="fab fa-paypal"></i> PayMongo</div><p class="payment-note">Powered by PayMongo – secure online payments</p></div>
+            <div class="size-info-notice"><strong>Size Information Notice</strong><p id="sizeNotice">Please refer to the size chart. Most costumes follow Asian sizing – we recommend ordering one size up if you are between sizes.</p></div>
+        </div>
+    </div>
+    <div id="sizeChartModal" class="sizechart-modal" style="display:none;"><div class="sizechart-container"><h3><i class="fas fa-ruler"></i> Size Chart</h3><div id="sizeChartContent"></div><button class="btn-primary" id="closeSizeChart">Close</button></div></div>
+</main>
+<footer class="site-footer">...</footer>
+<script type="module" src="script.js"></script>
+<script>document.addEventListener('DOMContentLoaded', () => { if (typeof loadProductDetail === 'function') loadProductDetail(); });</script>
+</body>
+</html>

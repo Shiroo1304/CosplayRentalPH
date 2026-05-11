@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Cosplay Rental PH - Rent Cosplays from Fellow Cosplayers</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Auth modal -->
+<div id="authModal" class="modal-overlay" style="display: none;">
+    <div class="modal-content glass-card">
+        <div class="modal-header">
+            <h2 id="authModalTitle">Login to Your Account</h2>
+        </div>
+        <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="signup">Sign Up</button>
+        </div>
+        <div id="loginTab" class="auth-tab active">
+            <form id="loginForm">
+                <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="loginEmail" placeholder="Email Address" required></div>
+                <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="loginPassword" placeholder="Password" required></div>
+                <button type="submit" class="btn-primary btn-full">Login</button>
+            </form>
+        </div>
+        <div id="signupTab" class="auth-tab">
+            <form id="signupForm">
+                <div class="input-group"><i class="fas fa-user"></i><input type="text" id="signupName" placeholder="Full Name" required></div>
+                <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="signupEmail" placeholder="Email Address" required></div>
+                <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="signupPassword" placeholder="Password (min 6 chars)" required></div>
+                <div class="input-group"><i class="fas fa-user-tag"></i><select id="signupRole"><option value="user">👤 I want to Rent Cosplays</option><option value="owner">👑 I'm a Cosplay Owner</option></select></div>
+                <div id="ownerSignupFields" style="display:none;">
+                    <div class="input-group"><i class="fas fa-store"></i><input type="text" id="signupShopName" placeholder="Shop Name"></div>
+                    <div class="input-group"><i class="fas fa-id-card"></i><select id="signupIdType"><option>Driver's License</option><option>Passport</option></select></div>
+                    <div class="input-group"><i class="fas fa-hashtag"></i><input type="text" id="signupIdNumber" placeholder="ID Number"></div>
+                    <div class="input-group"><i class="fas fa-map-marker-alt"></i><input type="text" id="signupAddress" placeholder="Address"></div>
+                    <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="signupPhone" placeholder="Phone Number"></div>
+                    <div class="form-group">
+                        <label>Verification Document (ID / Business Permit) – JPG only</label>
+                        <input type="file" id="signupDocFile" accept="image/jpeg, image/jpg">
+                        <small>Upload a clear photo of your ID or business permit.</small>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-full">Create Account</button>
+            </form>
+            <p class="auth-note">⭐ Owners must be approved by admin (demo admin@cosplay.com).</p>
+        </div>
+    </div>
+</div>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <ul class="nav-links"></ul>
+        <div class="nav-actions">
+            <div class="profile-dropdown" style="display: none;">
+                <div class="user-greeting">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="profileName"></span>
+                </div>
+                <div class="dropdown-content" id="profileDropdownMenu">
+                    <a href="#" id="accountSettingsBtn"><i class="fas fa-user-edit"></i> Account Settings</a>
+                    <a href="#" id="paymentSettingsBtn"><i class="fas fa-credit-card"></i> Payment Settings</a>
+                    <a href="#" id="themeToggleBtn"><i class="fas fa-moon"></i> Dark/Light Mode</a>
+                    <hr>
+                    <a href="#" id="dropdownLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <span id="userNameDisplay" class="user-greeting" style="display: none;"></span>
+            <button id="logoutBtn" class="btn-outline" style="display: none;">Logout</button>
+            <button id="openAuthBtn" class="btn-primary" style="display: inline-flex;">Login</button>
+        </div>
+        <div class="logo">
+            <a href="index.html"><i class="fas fa-dragon"></i><span>Cosplay Rental<span class="ph">PH</span></span></a>
+        </div>
+    </div>
+</nav>
+
+<main>
+    <section class="hero">
+        <div class="carousel-wrapper">
+            <div class="carousel-container" id="carouselContainer">
+                <div class="carousel-slides" id="carouselSlides"></div>
+                <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+            <div class="carousel-overlay">
+                <h2>Find Your Next Cosplay</h2>
+                <p>Rent from verified owners across the Philippines</p>
+                <button id="scrollToSignupBtn" class="btn-primary btn-large">Start Exploring →</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="howItWorksSection" class="how-it-works-mixed">
+        <h2 class="section-title"><i class="fas fa-question-circle"></i> How It Works</h2>
+        <div class="steps-grid">
+            <div class="clickable-step" data-action="signup">
+                <div class="step-number">1</div>
+                <i class="fas fa-user-plus step-icon"></i>
+                <h3>Sign Up</h3>
+                <p>Create your free account</p>
+            </div>
+            <div class="clickable-step" data-action="featured">
+                <div class="step-number">2</div>
+                <i class="fas fa-search step-icon"></i>
+                <h3>Browse</h3>
+                <p>Discover amazing costumes</p>
+            </div>
+            <div class="clickable-step" data-action="contact">
+                <div class="step-number">3</div>
+                <i class="fas fa-envelope step-icon"></i>
+                <h3>Contact Us</h3>
+                <p>We're here to help</p>
+            </div>
+        </div>
+
+        <div id="signupCompact" class="signup-compact">
+            <h3><i class="fas fa-rocket"></i> Ready to start?</h3>
+            <p>Join the community now – it's free!</p>
+            <div class="signup-role-selector">
+                <button class="role-selector-btn active" data-role="customer">🎭 I want to Rent</button>
+                <button class="role-selector-btn" data-role="owner">👑 I want to List Costumes</button>
+            </div>
+            <form id="signupFormInline" class="signup-form-compact">
+                <div class="form-row">
+                    <div class="input-group"><i class="fas fa-user"></i><input type="text" id="inlineName" placeholder="Full Name" required></div>
+                    <div class="input-group"><i class="fas fa-envelope"></i><input type="email" id="inlineEmail" placeholder="Email Address" required></div>
+                    <div class="input-group"><i class="fas fa-lock"></i><input type="password" id="inlinePassword" placeholder="Password (min 6 chars)" required></div>
+                </div>
+                <div id="inlineOwnerFields" style="display: none;">
+                    <div class="form-row">
+                        <div class="input-group"><i class="fas fa-store"></i><input type="text" id="inlineShopName" placeholder="Shop Name"></div>
+                        <div class="input-group"><i class="fas fa-id-card"></i><select id="inlineIdType"><option>Driver's License</option><option>Passport</option></select></div>
+                        <div class="input-group"><i class="fas fa-hashtag"></i><input type="text" id="inlineIdNumber" placeholder="ID Number"></div>
+                    </div>
+                    <div class="form-row">
+                        <div class="input-group"><i class="fas fa-map-marker-alt"></i><input type="text" id="inlineAddress" placeholder="Address"></div>
+                        <div class="input-group"><i class="fas fa-phone"></i><input type="tel" id="inlinePhone" placeholder="Phone Number"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary btn-large btn-full">Create Account</button>
+                <p class="auth-note">By signing up, you agree to our terms. Owners are manually verified by admin.</p>
+            </form>
+        </div>
+    </section>
+
+    <section id="featuredSection" class="featured">
+        <h2 class="section-title"><i class="fas fa-fire-flame"></i> Featured Costumes</h2>
+        <div class="cosplay-grid" id="featuredGrid"></div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="footer-content">
+        <div class="footer-brand"><i class="fas fa-dragon"></i> Cosplay Rental<span class="ph">PH</span></div>
+        <p>Rent, share, and celebrate costumes with the cosplay community.</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-tiktok"></i></a>
+        </div>
+        <div class="footer-links">
+            <a href="about.html">About</a>
+        </div>
+        <p class="copyright">© 2026 Cosplay Rental PH</p>
+    </div>
+</footer>
+
+<script type="module" src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const navLinks = document.querySelector('.nav-links');
+        if (navLinks && !document.body.classList.contains('logged-in')) {
+            navLinks.style.display = 'none';
+        }
+        document.querySelectorAll('.clickable-step').forEach(card => {
+            card.addEventListener('click', () => {
+                const action = card.dataset.action;
+                if (action === 'signup') {
+                    document.getElementById('signupCompact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (action === 'featured') {
+                    document.getElementById('featuredSection')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else if (action === 'contact') {
+                    document.querySelector('.site-footer')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>

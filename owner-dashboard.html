@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Owner Dashboard - Cosplay Rental PH</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar owner-navbar">
+    <div class="nav-container">
+        <ul class="nav-links">
+            <li><a href="owner-dashboard.html" class="active"><i class="fas fa-tshirt"></i> My Costumes</a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i> Performance</a></li>
+            <li><a href="#"><i class="fas fa-bell"></i> Notifications</a></li>
+            <li><a href="browse.html"><i class="fas fa-store"></i> Marketplace</a></li>
+        </ul>
+        <div class="nav-actions">
+            <div class="profile-dropdown">
+                <div class="user-greeting"><i class="fas fa-user-circle"></i><span id="profileName"></span></div>
+                <div class="dropdown-content" id="profileDropdownMenu">
+                    <a href="#" id="accountSettingsBtn"><i class="fas fa-user-edit"></i> Account Settings</a>
+                    <a href="#" id="paymentSettingsBtn"><i class="fas fa-credit-card"></i> Payment Settings</a>
+                    <a href="#" id="themeToggleBtn"><i class="fas fa-moon"></i> Dark/Light Mode</a><hr><a href="#" id="dropdownLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <button id="logoutBtn" class="btn-outline" style="display: none;">Logout</button>
+            <button id="openAuthBtn" class="btn-primary" style="display: none;">Login</button>
+        </div>
+        <div class="logo"><a href="index.html"><i class="fas fa-dragon"></i><span>Cosplay Rental<span class="ph">PH</span></span></a></div>
+    </div>
+</nav>
+<main class="owner-dashboard-new">
+    <div class="dashboard-stats">
+        <div class="stat-card"><i class="fas fa-tshirt"></i><div class="stat-info"><span id="totalCosplays" class="stat-number">0</span><span class="stat-label">Total Costumes</span></div></div>
+        <div class="stat-card"><i class="fas fa-clock"></i><div class="stat-info"><span id="pendingRequests" class="stat-number">0</span><span class="stat-label">Pending Requests</span></div></div>
+        <div class="stat-card"><i class="fas fa-check-circle"></i><div class="stat-info"><span id="activeRentals" class="stat-number">0</span><span class="stat-label">Active Rentals</span></div></div>
+        <div class="stat-card"><i class="fas fa-dollar-sign"></i><div class="stat-info"><span id="totalEarnings" class="stat-number">₱0</span><span class="stat-label">Total Earnings</span></div></div>
+    </div>
+    <div class="dashboard-tabs"><button class="dashboard-tab active" data-tab="inventory">📦 My Costumes</button><button class="dashboard-tab" data-tab="requests">📋 Rental Requests</button></div>
+    <div id="inventoryTab" class="dashboard-tab-content active"><div class="dashboard-actions"><button id="addCosplayBtn" class="btn-primary"><i class="fas fa-plus"></i> Add New Costume</button></div><div class="inventory-grid" id="ownerInventoryGrid"></div></div>
+    <div id="requestsTab" class="dashboard-tab-content" style="display: none;"><div class="dashboard-card"><div class="card-header"><h2><i class="fas fa-envelope-open-text"></i> Rental Requests</h2><span id="requestCount" class="badge-urgent">0 pending</span></div><div id="rentalRequestsList"></div></div></div>
+</main>
+<div id="costumeModal" class="modal-overlay" style="display: none;"><div class="modal-content" style="max-width: 600px; max-height: 90vh; overflow-y: auto;"><div class="modal-header"><h3 id="costumeModalTitle">Add New Costume</h3><button class="modal-close" id="closeCostumeModalBtn">&times;</button></div><form id="costumeForm"><div class="form-group"><label>Costume Name *</label><input type="text" id="costumeName" required></div><div class="form-row"><div class="form-group"><label>Genre *</label><select id="costumeGenre" required><option value="anime">Anime</option><option value="gaming">Gaming</option><option value="fantasy">Fantasy</option><option value="sci-fi">Sci-Fi</option><option value="horror">Horror</option></select></div><div class="form-group"><label>Size *</label><select id="costumeSize" required><option value="small">Small (S/M)</option><option value="large">Large (L/XL)</option></select></div></div><div class="form-group"><label>Price per day (₱) *</label><input type="number" id="costumePrice" step="50" required></div><div class="form-group"><label>Costume Image (Square JPG only)</label><input type="file" id="costumeImageInput" accept="image/jpeg, image/jpg"><div id="imagePreview" style="margin-top: 10px;"></div><small>Only square JPG images (max 2MB). Will be resized to 400x400.</small><input type="hidden" id="costumeImageBase64"></div><div class="form-group"><label>Measurements (optional)</label><div class="form-row"><div class="form-group"><label>Bust</label><input type="text" id="measureBust" placeholder="e.g., 90cm"></div><div class="form-group"><label>Waist</label><input type="text" id="measureWaist" placeholder="e.g., 72cm"></div><div class="form-group"><label>Hips</label><input type="text" id="measureHips" placeholder="e.g., 95cm"></div><div class="form-group"><label>Length</label><input type="text" id="measureLength" placeholder="e.g., 165cm"></div></div></div><div class="form-group"><label>Sizing Tip (optional)</label><input type="text" id="costumeTip" placeholder="e.g., Fits Asian sizing – order one size up"></div><div class="form-row"><div class="form-group"><label>Discount (%)</label><input type="number" id="costumeDiscount" step="5" min="0" max="90" value="0"></div><div class="form-group"><label>Sale End Date (optional)</label><input type="date" id="costumeSaleEnd"></div></div><div class="form-group"><label>Available Until (optional)</label><input type="date" id="costumeAvailableUntil"></div><div class="form-actions"><button type="button" id="cancelCostumeBtn" class="btn-outline">Cancel</button><button type="submit" class="btn-primary">Save Costume</button></div></form></div></div>
+<footer class="site-footer">...</footer>
+<script type="module" src="script.js"></script>
+</body>
+</html>

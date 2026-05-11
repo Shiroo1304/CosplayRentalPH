@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Rentals - Cosplay Rental PH</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar">
+    <div class="nav-container">
+        <ul class="nav-links"></ul>
+        <div class="nav-actions">
+            <div class="profile-dropdown" style="display: none;">
+                <div class="user-greeting"><i class="fas fa-user-circle"></i><span id="profileName"></span></div>
+                <div class="dropdown-content" id="profileDropdownMenu">
+                    <a href="#" id="accountSettingsBtn"><i class="fas fa-user-edit"></i> Account Settings</a>
+                    <a href="#" id="paymentSettingsBtn"><i class="fas fa-credit-card"></i> Payment Settings</a>
+                    <a href="#" id="themeToggleBtn"><i class="fas fa-moon"></i> Dark/Light Mode</a>
+                    <hr><a href="#" id="dropdownLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <span id="userNameDisplay" class="user-greeting" style="display: none;"></span>
+            <button id="logoutBtn" class="btn-outline" style="display: none;">Logout</button>
+            <button id="openAuthBtn" class="btn-primary" style="display: inline-flex;">Login</button>
+        </div>
+        <div class="logo"><a href="index.html"><i class="fas fa-dragon"></i><span>Cosplay Rental<span class="ph">PH</span></span></a></div>
+    </div>
+</nav>
+<main class="rentals-main">
+    <div class="rentals-tabs">
+        <button class="rental-tab active" data-status="all">All</button>
+        <button class="rental-tab" data-status="paid">Paid / Awaiting Pickup</button>
+        <button class="rental-tab" data-status="approved">Active</button>
+        <button class="rental-tab" data-status="completed">Completed</button>
+    </div>
+    <div id="rentalsList" class="rentals-list-container"></div>
+</main>
+<footer class="site-footer">...</footer>
+<script type="module" src="script.js"></script>
+</body>
+</html>

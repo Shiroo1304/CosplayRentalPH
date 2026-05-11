@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Browse Cosplays - Cosplay Rental PH</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar">
+    <div class="nav-container">
+        <ul class="nav-links"></ul>
+        <div class="nav-actions">
+            <div class="profile-dropdown" style="display: none;">
+                <div class="user-greeting">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="profileName"></span>
+                </div>
+                <div class="dropdown-content" id="profileDropdownMenu">
+                    <a href="#" id="accountSettingsBtn"><i class="fas fa-user-edit"></i> Account Settings</a>
+                    <a href="#" id="paymentSettingsBtn"><i class="fas fa-credit-card"></i> Payment Settings</a>
+                    <a href="#" id="themeToggleBtn"><i class="fas fa-moon"></i> Dark/Light Mode</a>
+                    <hr>
+                    <a href="#" id="dropdownLogoutBtn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+            <span id="userNameDisplay" class="user-greeting" style="display: none;"></span>
+            <button id="logoutBtn" class="btn-outline" style="display: none;">Logout</button>
+            <button id="openAuthBtn" class="btn-primary" style="display: inline-flex;">Login</button>
+        </div>
+        <div class="logo">
+            <a href="index.html"><i class="fas fa-dragon"></i><span>Cosplay Rental<span class="ph">PH</span></span></a>
+        </div>
+    </div>
+</nav>
+
+<main class="browse-main">
+    <div class="browse-layout">
+        <aside class="filters-sidebar-fixed">
+            <h3><i class="fas fa-filter"></i> Filters</h3>
+            <div class="filter-group">
+                <label>Genre <i class="fas fa-chevron-right"></i></label>
+                <div class="filter-content">
+                    <select id="genreFilter">
+                        <option value="all">All Genres</option>
+                        <option value="anime">Anime</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="fantasy">Fantasy</option>
+                        <option value="sci-fi">Sci-Fi</option>
+                        <option value="horror">Horror</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Size <i class="fas fa-chevron-right"></i></label>
+                <div class="filter-content">
+                    <select id="sizeFilter">
+                        <option value="all">All Sizes</option>
+                        <option value="small">Small (S/M)</option>
+                        <option value="large">Large (L/XL)</option>
+                    </select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Owner <i class="fas fa-chevron-right"></i></label>
+                <div class="filter-content">
+                    <select id="ownerFilter"><option value="all">All Owners</option></select>
+                </div>
+            </div>
+            <div class="filter-group">
+                <label>Show Only <i class="fas fa-chevron-right"></i></label>
+                <div class="filter-content">
+                    <select id="wishlistFilter">
+                        <option value="all">All Cosplays</option>
+                        <option value="wishlist">My Wishlist Only</option>
+                    </select>
+                </div>
+            </div>
+            <button id="resetFilters" class="btn-secondary btn-small btn-full">Reset Filters</button>
+        </aside>
+        <div class="results-area-fixed">
+            <div class="results-count"><i class="fas fa-search"></i> Showing <span id="countNum">0</span> costumes</div>
+            <div class="cosplay-grid" id="browseGrid"></div>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">...</footer>
+
+<script type="module" src="script.js"></script>
+<script>
+    (function() {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initFilters);
+        } else {
+            initFilters();
+        }
+        function initFilters() {
+            const filterSidebar = document.querySelector('.filters-sidebar-fixed');
+            if (!filterSidebar) return;
+            filterSidebar.addEventListener('click', function(e) {
+                const label = e.target.closest('.filter-group label');
+                if (!label) return;
+                const group = label.closest('.filter-group');
+                if (!group) return;
+                e.preventDefault();
+                requestAnimationFrame(() => group.classList.toggle('active'));
+            });
+            const resetBtn = document.getElementById('resetFilters');
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function() {
+                    const genre = document.getElementById('genreFilter');
+                    const size = document.getElementById('sizeFilter');
+                    const owner = document.getElementById('ownerFilter');
+                    const wish = document.getElementById('wishlistFilter');
+                    if (genre) genre.value = 'all';
+                    if (size) size.value = 'all';
+                    if (owner) owner.value = 'all';
+                    if (wish) wish.value = 'all';
+                    if (typeof loadBrowsePage === 'function') requestAnimationFrame(() => loadBrowsePage());
+                });
+            }
+        }
+    })();
+</script>
+</body>
+</html>
